@@ -37,6 +37,9 @@ dev = [
     "ruff>=0.1.0",
 ]
 
+[project.scripts]
+sleight = "sleight.cli:main"
+
 [project.urls]
 Homepage = "https://github.com/thehhugg/sleight"
 Repository = "https://github.com/thehhugg/sleight"
