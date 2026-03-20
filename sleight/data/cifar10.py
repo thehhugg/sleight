@@ -24,4 +24,4 @@ def load_cifar10_data() -> Tuple[Tuple[np.ndarray, np.ndarray], Tuple[np.ndarray
     x_test = x_test.astype("float32")
     y_train = y_train.flatten()
     y_test = y_test.flatten()
-    return (x_train, y_train), (x_test, y_test) 
+    return (x_train, y_train), (x_test, y_test)

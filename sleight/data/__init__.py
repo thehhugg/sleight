@@ -43,9 +43,7 @@ def get_dataset(name: str, one_hot: bool = False) -> DatasetTuple:
         ValueError: If ``name`` is not in the registry.
     """
     if name not in data_registry:
-        raise ValueError(
-            f"Unknown dataset: {name}. Available: {list(data_registry.keys())}"
-        )
+        raise ValueError(f"Unknown dataset: {name}. Available: {list(data_registry.keys())}")
     (x_train, y_train), (x_test, y_test) = data_registry[name]()
     if one_hot:
         import tensorflow as tf
@@ -53,4 +51,4 @@ def get_dataset(name: str, one_hot: bool = False) -> DatasetTuple:
         num_classes = len(set(y_train))
         y_train = tf.keras.utils.to_categorical(y_train, num_classes)
         y_test = tf.keras.utils.to_categorical(y_test, num_classes)
-    return (x_train, y_train), (x_test, y_test) 
+    return (x_train, y_train), (x_test, y_test)

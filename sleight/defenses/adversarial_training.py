@@ -39,7 +39,7 @@ def adversarial_train(
     y_train_cat = tf.keras.utils.to_categorical(y_train, num_classes=model.output_shape[-1])
 
     for epoch in range(epochs):
-        print(f"Epoch {epoch+1}/{epochs}")
+        print(f"Epoch {epoch + 1}/{epochs}")
         idx = np.random.permutation(len(x_train))
         x_train_shuffled = x_train[idx]
         y_train_shuffled = y_train_cat[idx]
@@ -56,4 +56,4 @@ def adversarial_train(
 
             # Train on both clean and adversarial examples
             model.train_on_batch(x_combined, y_combined)
-    return model 
+    return model

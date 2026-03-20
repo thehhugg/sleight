@@ -22,4 +22,4 @@ def load_mnist_data() -> Tuple[Tuple[np.ndarray, np.ndarray], Tuple[np.ndarray, 
     x_train, x_test = x_train / 255.0, x_test / 255.0
     x_train = x_train[..., np.newaxis].astype("float32")
     x_test = x_test[..., np.newaxis].astype("float32")
-    return (x_train, y_train), (x_test, y_test) 
+    return (x_train, y_train), (x_test, y_test)
