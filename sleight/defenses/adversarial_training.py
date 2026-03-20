@@ -1,20 +1,39 @@
-import tensorflow as tf
+"""Adversarial training defense implementation."""
+
+from __future__ import annotations
+
+from typing import Callable
+
 import numpy as np
+import tensorflow as tf
 
 
-def adversarial_train(model, x_train, y_train, attack_fn, epsilon=0.1, epochs=3, batch_size=64):
-    """
-    Perform adversarial training on a Keras model.
+def adversarial_train(
+    model: tf.keras.Model,
+    x_train: np.ndarray,
+    y_train: np.ndarray,
+    attack_fn: Callable[[tf.keras.Model, np.ndarray, np.ndarray, float], np.ndarray],
+    epsilon: float = 0.1,
+    epochs: int = 3,
+    batch_size: int = 64,
+) -> tf.keras.Model:
+    """Perform adversarial training on a Keras model.
+
+    Trains the model on a mix of clean and adversarial examples generated
+    by the provided attack function.
+
     Args:
-        model: tf.keras.Model, the model to train
-        x_train: np.ndarray, training images
-        y_train: np.ndarray, training labels
-        attack_fn: function(model, images, labels, epsilon) -> adversarial images
-        epsilon: float, perturbation strength
-        epochs: int, number of epochs
-        batch_size: int, batch size
+        model: A compiled tf.keras.Model to train.
+        x_train: Training images as a NumPy array.
+        y_train: Training labels as integer class indices.
+        attack_fn: A callable with signature
+            ``attack_fn(model, images, labels, epsilon) -> adversarial_images``.
+        epsilon: Perturbation strength passed to ``attack_fn``.
+        epochs: Number of training epochs.
+        batch_size: Batch size for training.
+
     Returns:
-        Trained model
+        The trained model (same object, modified in place).
     """
     num_batches = int(np.ceil(len(x_train) / batch_size))
     y_train_cat = tf.keras.utils.to_categorical(y_train, num_classes=model.output_shape[-1])
