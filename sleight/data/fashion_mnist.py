@@ -8,7 +8,9 @@ import numpy as np
 import tensorflow as tf
 
 
-def load_fashion_mnist_data() -> Tuple[Tuple[np.ndarray, np.ndarray], Tuple[np.ndarray, np.ndarray]]:
+def load_fashion_mnist_data() -> Tuple[
+    Tuple[np.ndarray, np.ndarray], Tuple[np.ndarray, np.ndarray]
+]:
     """Load and preprocess the Fashion-MNIST dataset.
 
     Images are normalized to [0, 1], cast to ``float32``, and given a
@@ -22,4 +24,4 @@ def load_fashion_mnist_data() -> Tuple[Tuple[np.ndarray, np.ndarray], Tuple[np.n
     x_train, x_test = x_train / 255.0, x_test / 255.0
     x_train = x_train[..., np.newaxis].astype("float32")
     x_test = x_test[..., np.newaxis].astype("float32")
-    return (x_train, y_train), (x_test, y_test) 
+    return (x_train, y_train), (x_test, y_test)
