@@ -2,6 +2,8 @@ import numpy as np
 import tensorflow as tf
 from sleight.attacks.fgsm_attack import fgsm_attack
 from sleight.attacks.pgd_attack import pgd_attack
+from sleight.attacks.cw_attack import cw_attack
+from sleight.attacks.deepfool_attack import deepfool_attack
 
 
 def get_dummy_model(input_shape, num_classes):
@@ -29,5 +31,32 @@ def test_pgd_attack():
     x = np.random.rand(2, 28, 28, 1).astype(np.float32)
     y = tf.keras.utils.to_categorical(np.array([1, 2]), 10)
     adv = pgd_attack(model, x, y, epsilon=0.1, alpha=0.01, num_iter=5)
+    assert adv.shape == x.shape
+    assert np.all(adv >= 0) and np.all(adv <= 1)
+
+
+def test_cw_attack():
+    model = get_dummy_model((4, 4, 1), 10)
+    x = np.random.rand(2, 4, 4, 1).astype(np.float32)
+    y = tf.keras.utils.to_categorical(np.array([1, 2]), 10)
+    adv = cw_attack(model, x, y, epsilon=1.0, c=1.0, learning_rate=0.01, num_iter=10)
+    assert adv.shape == x.shape
+    assert np.all(adv >= 0) and np.all(adv <= 1)
+
+
+def test_cw_attack_integer_labels():
+    model = get_dummy_model((4, 4, 1), 10)
+    x = np.random.rand(2, 4, 4, 1).astype(np.float32)
+    y = np.array([1, 2])
+    adv = cw_attack(model, x, y, epsilon=1.0, c=1.0, learning_rate=0.01, num_iter=10)
+    assert adv.shape == x.shape
+    assert np.all(adv >= 0) and np.all(adv <= 1)
+
+
+def test_deepfool_attack():
+    model = get_dummy_model((4, 4, 1), 10)
+    x = np.random.rand(2, 4, 4, 1).astype(np.float32)
+    y = np.array([1, 2])
+    adv = deepfool_attack(model, x, y, epsilon=5.0, max_iter=10)
     assert adv.shape == x.shape
     assert np.all(adv >= 0) and np.all(adv <= 1)
