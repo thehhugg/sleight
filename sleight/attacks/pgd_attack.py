@@ -13,6 +13,9 @@ def pgd_attack(model, images, labels, epsilon=0.1, alpha=0.01, num_iter=40):
     Returns:
         Adversarial images (tf.Tensor)
     """
+    images = tf.cast(tf.convert_to_tensor(images), tf.float32)
+    labels = tf.cast(tf.convert_to_tensor(labels), tf.float32)
+
     adv_images = tf.identity(images)
     for i in range(num_iter):
         with tf.GradientTape() as tape:

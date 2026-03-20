@@ -1,0 +1,51 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sleight"
+version = "0.1.0"
+description = "A hands-on Python toolkit for exploring adversarial attacks and defenses on neural networks"
+readme = "README.md"
+license = {text = "Apache-2.0"}
+requires-python = ">=3.9"
+authors = [
+    {name = "thehhugg"},
+]
+keywords = ["adversarial", "machine-learning", "deep-learning", "security", "robustness"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Education",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "tensorflow>=2.14",
+    "numpy>=1.24",
+    "matplotlib>=3.7",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "ruff>=0.1.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/thehhugg/sleight"
+Repository = "https://github.com/thehhugg/sleight"
+Issues = "https://github.com/thehhugg/sleight/issues"
+
+[tool.setuptools.packages.find]
+include = ["sleight*"]
+where = ["."]
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
